@@ -2,7 +2,7 @@ defmodule Issues.GithubIssues do
   require Logger
 
   @user_agent [{"User-agent", "Elixir mperezibars@gmail.com"}]
-  @github_url Application.get_env(:issues, :github_url)
+  @github_url Application.compile_env!(:issues, :github_url)
 
   def fetch(user, project) do
     Logger.info("Fetching #{user}'s project #{project}")
