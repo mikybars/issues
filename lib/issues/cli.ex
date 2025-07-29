@@ -6,10 +6,10 @@ defmodule Issues.CLI do
   the various functions that end up generating a
   table of the last _n_ issues in a github project
   """
-  alias Issues.TableFormatter
-
-  def run(argv) do
-    argv |> parse_args() |> process()
+  def main(argv) do
+    argv
+    |> parse_args
+    |> process
   end
 
   @doc """
