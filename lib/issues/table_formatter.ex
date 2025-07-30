@@ -11,6 +11,20 @@ defmodule Issues.TableFormatter do
     end
   end
 
+  @doc """
+  Given a list of rows, where each row contains a keyed list
+  of columns, return a list containing lists of the data in
+  each column. The `headers` parameter contains the
+  list of columns to extract
+
+  ## Example
+
+    iex> list = [Enum.into([{"a", "1"}, {"b", "2"}, {"c", "3"}], %{}),
+    ...>         Enum.into([{"a", "4"}, {"b", "5"}, {"c", "6"}], %{})]
+    iex> Issues.TableFormatter.split_into_columns(list, [ "a", "b", "c" ])
+    [ ["1", "4"], ["2", "5"], ["3", "6"] ]
+  """
+
   def split_into_columns(rows, headers) do
     for header <- headers do
       for row <- rows do
@@ -28,6 +42,15 @@ defmodule Issues.TableFormatter do
     end
   end
 
+  @doc """
+  Return a format string that hard-codes the widths of a set of columns.
+  We put `" | "` between each column.
+
+  ## Example
+  iex> widths = [5,6,99]
+  iex> Issues.TableFormatter.format_for(widths)
+  "~-5s | ~-6s | ~-99s~n"
+  """
   def format_for(column_widths) do
     map_join(column_widths, " | ", &"~-#{&1}s") <> "~n"
   end
